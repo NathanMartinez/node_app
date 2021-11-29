@@ -6,6 +6,8 @@ const helmet = require("helmet");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 
+var usersRouter = require('./Routes/users.routes');
+
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
@@ -18,10 +20,17 @@ mongoose
 
 mongoose.Promise = global.Promise;
 
+app.use('/users', usersRouter);
+
 const port = 5000;
 
+app.get('/', (req, res) => {
+  res.send('Hello')
+  console.log('hello')
+})
+
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 404).json({
     message: "No such route exists",
   });

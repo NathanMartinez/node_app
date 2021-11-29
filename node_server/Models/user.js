@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
 		match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
   },
   password: String,
-  phone_number: Number,
+  phone_number: String,
 });
 
 module.exports = mongoose.model("User", userSchema);

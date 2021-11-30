@@ -2,6 +2,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../Models/user");
 
+require("dotenv").config();
+
 const userRegister = (req, res, next) => {
   User.find({ email: req.body.email })
     .exec()
@@ -20,7 +22,7 @@ const userRegister = (req, res, next) => {
             const user = new User({
               email: req.body.email,
               password: hash,
-              name: req.body.name,
+              username: req.body.username,
               phone_number: req.body.phone_number,
             });
             user
@@ -34,7 +36,7 @@ const userRegister = (req, res, next) => {
                       userDetails: {
                         userId: result._id,
                         email: result.email,
-                        name: result.name,
+                        username: result.username,
                         phone_number: result.phone_number,
                       },
                     });
@@ -86,12 +88,12 @@ const userLogin = (req, res, next) => {
             {
               userId: user[0]._id,
               email: user[0].email,
-              name: user[0].name,
+              username: user[0].username,
               phone_number: user[0].phone_number,
             },
             process.env.jwtSecret,
             {
-              expiresIn: "1d",
+              expiresIn: 30,
             }
           );
           console.log(user[0]);
@@ -99,7 +101,7 @@ const userLogin = (req, res, next) => {
             message: "Auth successful",
             userDetails: {
               userId: user[0]._id,
-              name: user[0].name,
+              username: user[0].username,
               email: user[0].email,
               phone_number: user[0].phone_number,
             },

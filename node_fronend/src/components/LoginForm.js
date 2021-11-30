@@ -2,29 +2,27 @@ import { useState } from "react";
 import { Card, Button, Form, Row, InputGroup } from "react-bootstrap";
 import { Formik } from "formik";
 import axios from "axios";
-import signupSchema from "../schemas/signup.schemas";
+import loginSchema from "../schemas/login.schemas";
 
-function SignupForm() {
+function LoginForm() {
   const [data, setData] = useState({
-    username: "",
     email: "",
     password: "",
-    phone_number: "",
   });
 
   return (
     <Card>
       <Card.Header>
-        <Card.Title>Sign up</Card.Title>
+        <Card.Title>Login</Card.Title>
       </Card.Header>
       <Card.Body>
         <Formik
-          validationSchema={signupSchema}
+          validationSchema={loginSchema}
           onSubmit={async (values, actions) => {
             actions.setSubmitting(true);
             setData(values);
             await axios
-              .post("http://127.0.0.1:5000/users/signup", values)
+              .post("http://127.0.0.1:5000/users/login", values)
               .then(function (response) {
                 console.log(response);
               })
@@ -33,47 +31,29 @@ function SignupForm() {
               });
             actions.resetForm({
               values: {
-                username: "",
                 email: "",
                 password: "",
-                phone_number: "",
               },
             });
             actions.setSubmitting(true);
             console.log(data);
           }}
           initialValues={{
-            username: "",
             email: "",
             password: "",
-            phone_number: "",
           }}
         >
           {({
             handleSubmit,
             handleChange,
+            handleBlur,
             values,
             touched,
+            isValid,
             errors,
           }) => (
             <Form noValidate onSubmit={handleSubmit}>
               <Row className="mb-3">
-                <Form.Group controlId="validationFormik01">
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="username"
-                    placeholder="username"
-                    value={values.username}
-                    onChange={handleChange}
-                    isValid={touched.username && !errors.username}
-                    isInvalid={!!errors.username}
-                  />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                  <Form.Control.Feedback type="invalid">
-                    {errors.username}
-                  </Form.Control.Feedback>
-                </Form.Group>
                 <Form.Group controlId="validationFormikemail">
                   <Form.Label>Email</Form.Label>
                   <InputGroup hasValidation>
@@ -105,32 +85,13 @@ function SignupForm() {
                     isValid={touched.password && !errors.password}
                     isInvalid={!!errors.password}
                   />
-
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
                     {errors.password}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>
-              <Row className="mb-3">
-                <Form.Group controlId="validationFormik03">
-                  <Form.Label>Phone Number</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="555-555-5555"
-                    name="phone_number"
-                    value={values.phone_number}
-                    onChange={handleChange}
-                    isValid={touched.phone_number && !errors.phone_number}
-                    isInvalid={!!errors.phone_number}
-                  />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                  <Form.Control.Feedback type="invalid">
-                    {errors.phone_number}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Row>
-              <Button type="submit">Sign up</Button>
+              <Button type="submit">Login</Button>
             </Form>
           )}
         </Formik>
@@ -139,4 +100,4 @@ function SignupForm() {
   );
 }
 
-export default SignupForm;
+export default LoginForm;

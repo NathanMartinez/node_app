@@ -1,14 +1,42 @@
-import { Navbar, Nav } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import { Navbar, Nav, Button } from "react-bootstrap";
 
 function Navigation() {
   return (
-    <Navbar bg="dark" variant="dark" style={{padding: ".8rem"}}>
-        <Navbar.Brand href="#home">Slick</Navbar.Brand>
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg="dark"
+      variant="dark"
+      className="p-3"
+    >
+      <Navbar.Brand as={NavLink} to="/">
+        Slick
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="me-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
+          <Nav.Link as={NavLink} to="/">
+            Home
+          </Nav.Link>
+          <Nav.Link as={NavLink} to="/about">
+            About
+          </Nav.Link>
         </Nav>
+        <Nav>
+          <Button
+            as={NavLink}
+            to="/login"
+            variant="outline-primary"
+            style={{ marginRight: ".5rem" }}
+          >
+            Log in
+          </Button>
+          <Button as={NavLink} to="/signup" variant="primary">
+            Sign up
+          </Button>
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
   );
 }

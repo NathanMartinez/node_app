@@ -6,12 +6,12 @@ const helmet = require("helmet");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 
-var usersRouter = require('./Routes/users.routes');
+var usersRouter = require("./Routes/users.routes");
 
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
-app.use(logger('dev'));
+app.use(logger("dev"));
 
 mongoose
   .connect("mongodb://127.0.0.1/first_db")
@@ -20,14 +20,14 @@ mongoose
 
 mongoose.Promise = global.Promise;
 
-app.use('/users', usersRouter);
+app.use("/users", usersRouter);
 
 const port = 5000;
 
-app.get('/', (req, res) => {
-  res.send('Hello')
-  console.log('hello')
-})
+// app.get("/", (req, res) => {
+//   res.send("Hello");
+//   console.log(process.env.jwtSecret);
+// });
 
 // catch 404 and forward to error handler
 app.use(function (err, req, res, next) {

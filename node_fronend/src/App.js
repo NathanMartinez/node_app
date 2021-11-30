@@ -1,5 +1,9 @@
 import { Container } from "react-bootstrap";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import About from './components/About'
 import SignupForm from "./components/SignupForm";
+import LoginForm from "./components/LoginForm";
 import Navigation from "./components/Navbar";
 
 function App() {
@@ -14,7 +18,12 @@ function App() {
           height: "100%",
         }}
       >
-        <SignupForm />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/signup" element={<SignupForm />} />
+          <Route path="/login" element={<LoginForm />} />
+        </Routes>
       </Container>
     </div>
   );
